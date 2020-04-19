@@ -13,6 +13,8 @@ d3.json(url).then(function(data){
             .text(function(d) {return d;});
 });
 
+
+console.log(data)
 function optionChanged(inputValue) {
     console.log(inputValue)
     d3.json(url).then (function(data){
@@ -70,9 +72,30 @@ if (data[i].id===parseInt(inputValue,10)){
         };
         Plotly.newPlot("bar", data, layout);
         
-}
+
+        var trace2 = {
+            x: otu_ids, 
+            y: sample_values,
+            text: otu_labels,
+            type: "bubble",
+            mode: 'markers',
+            marker: {
+                color: otu_ids, 
+                size: sample_values
+            }
+        };
+
+        var data2 = [trace2];
+        var layout2 = {
+            title: 'All Operational Taxonomic Units '+inputValue,
+            showlegend: true,
+            height: 600, 
+            width: 1000
+        };
+        Plotly.newPlot('bubble', data2, layout2);
+    }
+};
 
 
    
 
-}
